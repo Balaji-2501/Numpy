@@ -1,0 +1,487 @@
+scipy.org -- official website
+
+Why do we need numpy ?
+	we can store data in list as well..but compare to list numpy takes small amount of memory and read data from memory is faster.
+	in list data storing like scatter memory in numpy storing data continuously.
+
+NumPy gives you an enormous range of fast and efficient ways of creating arrays and manipulating numerical data inside them. 
+While a Python list can contain different data types within a single list, all of the elements in a NumPy array should be homogeneous. 
+The mathematical operations that are meant to be performed on arrays would be extremely inefficient if the arrays weren’t homogeneous.
+
+Why use NumPy?
+
+NumPy arrays are faster and more compact than Python lists. An array consumes less memory and is convenient to use. 
+NumPy uses much less memory to store data and it provides a mechanism of specifying the data types. 
+This allows the code to be optimized even further.
+
+*************************************************
+
+python Engineer:-
+-----------------
+import numpy as np 
+
+a=np.array([1,2,3])
+print(a)
+print(a.shape) # shape of array
+print(a.dtype) # Data type of array
+print(a.ndim) # dimension of an array
+print(a.size) # to get total no.of elements
+print(a.itemsize) # to get individual element size
+print(a.nbytes) # ( a.itemsize * a.size )
+
+print(np.__version__)
+a=np.array([1,2,3,4])
+print(a.shape) # (4,)
+print(a.dtype) # int32
+print(a.size) # 4 
+print(a.itemsize) # 4 
+print(a.nbytes) # 16 
+
+print(a)  # [1 2 3 4]
+a[0]=100
+print(a) # [100   2   3   4]
+
+
+np=np.array([1,'bala'])
+print(np) # valid numpy array 
+nd=np.array(['@@#$$','bala'])
+print(nd) # valid numpy
+
+=============================================
+
+To check numpy array equal 
+-------------------------- 
+
+import numpy as np
+
+a=np.array([1,2,3,4])
+b=np.array([1,2,3,4])
+n=np.array_equal(a,b)
+print(n)
+
+print((a==b).all())
+
+np.array:-
+==========
+
+a=np.array([1,2,3])
+a[-1]=10
+print(a) # [ 1  2 10]
+
+a=np.array([1,2,3])
+a+=10
+print(a)  #[11 12 13]
+
+a=np.array([1,2,3])
+b=a*np.array([2,0,2])
+print(b)  # [2 0 6]
+
+a=np.array([1,2,3])
+b=np.array([4,5,6])
+
+
+a=np.array([2,3,4])
+b=np.array([3,4,5])
+print(a*b) # [ 6 12 20]
+print(a+b) # [5 7 9]
+print(a-b) # [-1 -1 -1]
+print(a/b) # [0.66666667 0.75       0.8       ]
+
+
+shape:- shape output will in tuple
+======
+a=np.array([[1,2,3],[7,6,5]])
+print(a.shape) #(2,3)
+
+dot:-
+=====
+print(a@b) # 32 
+print(sum(a*b)) # 32 
+print(np.dot(a,b)) # 32 
+print((a*b).sum()) # 32 
+
+slicing:-
+=========
+a=np.array([2,3,4])
+print(a[:2]) # [2 3]
+
+a=np.array([2,3,4])
+print(a[::-1]) # [4 3 2]
+
+a=np.array([2,3,4],[6,7,8]) # Should be like nested list or else error
+print(a[::-1])  # Error 
+
+a=np.array([[2,3,4],[6,7,8]]) # Should be like nested list
+print(a[::-1])
+
+a=np.array([[2,3,4],[6,7,8]])
+print(a[:,1]) # to get only 1st column [3 7] 
+
+a=np.array([[1,2,3],[7,6,5]])
+print(a[0,1]) #2
+print(a[:,2]) #[3,5]
+
+
+Transpose,Inverse,Determination,diagonal value:
+===============================================
+print(a.T)
+print(np.linalg.inv(a)) #inverse
+print(np.linalg.det(a)) # determination
+print(np.diag(a)) # print diagonal value
+
+
+Condition data:- 
+================
+
+a=np.array([1,2,3,4])
+b=np.array([4,0,1,5])
+print(a[a>b]) #[2,3]
+
+
+a=np.array([[1,2],[5,9],[7,6]])
+id=a>3 
+print(id)
+[[False False]
+ [ True  True]
+ [ True  True]]
+print(a[id]) #[5 9 7 6]
+
+print(a[a>3])#[5 9 7 6]
+print(np.where(a>3,a,-1)) # [[-1 -1][ 5  9] [ 7  6]] if condition not met then print -1 
+
+
+a=np.array([10,19,30,41,50,61])
+b=[1,3,5]
+print(a[b])  # [19 41 61] --> take only index of value present in b
+
+a=np.array([10,19,30,41,50,61])
+print(a[np.argwhere(a%2).flatten()]) # will get value
+print(np.argwhere(a%2==0).flatten()) # returns even value index [0 2 4]
+print(np.argwhere(a%2!=0).flatten()) # will get only index 
+print(a[np.argwhere(a%2==0).flatten()]) # to get those value [10 30 50]
+
+
+Reshaping:  (reshape,newaxis)
+==========
+
+reshape -- giving a.reshape((4,2)) (Muliplication shld same as no.of element)
+newaxis -- just use to change shape a[:,np.newaxis] --> Columnwise change 
+		   a[np.newaxis,:] -> (make list of list)
+
+a=np.arange(1,7)
+print(a) # [1 2 3 4 5 6]
+print(a.reshape((2,3))) # 1st 2 rows then 3  column ..multiple shld equal to no.of elements
+[[1 2 3]
+ [4 5 6]]
+
+a=np.arange(1,7)
+print(a.shape) # (6,) [1 2 3 4 5 6 7 8]
+
+b=a[np.newaxis,:] # Make list of list  [[1 2 3 4 5 6 7 8]]
+print(b.shape) # (1,6)
+b=a[:,np.newaxis]
+print(b.shape) # (6,1)
+[[1]
+ [2]
+ [3]
+ [4]
+ [5]
+ [6]
+ [7]	
+ [8]]
+b=a.flatten()
+print(b.shape) #(6,)
+
+
+Concatenate:
+============
+a=np.array([[1,2],[3,4]])
+b=np.array([[1,3]])
+print(np.concatenate((a,b)))
+[[1 2]
+ [3 4]
+ [1 3]]
+print(np.concatenate((a,b.T),axis=1))
+[[1 2 1]
+ [3 4 3]]
+ 
+print(np.concatenate((a,b)).T)
+[[1 3 1]
+ [2 4 3]]
+
+operation:-
+----------
+
+np.array:- 
+=========
+l=np.array([1,2,3,4])
+print(l)
+l=np.array(([1,2,3,4,5],[5,4,3,5,2]))
+print(l)
+
+
+just like normal list accessing elements of array 
+-------------------------------------------------
+import numpy as np
+
+a=np.array([1,2,3,4])
+print(a[-1]) # -- 4
+print(a[0])  # -- 1
+
+a=np.zeros(5)
+print(a) #[0. 0. 0. 0. 0.]
+
+a=np.zeros(5,dtype='int32') #[0 0 0 0 0]
+print(np.ones(5, dtype=np.int64)) # [1 1 1 1 1]
+b=np.empty(0) # []
+
+print(np.arange(10))  # [0 1 2 3 4 5 6 7 8 9]
+print(np.arange(10,20)) # [10 11 12 13 14 15 16 17 18 19]
+print(np.arange(2, 9, 2)) # [2 4 6 8]
+
+
+print(np.linspace(1,11,num=5)) --> between 1 and 11 create 5 numbers equally difference
+[ 1.   3.5  6.   8.5 11. ]
+
+**********************************************
+
+import numpy as np
+a=np.array([1,2,3,4])
+print(a)
+print(a.ndim)
+b=np.array([(1,2,3,4),(5,6,7,8)])
+# b=np.array([[1,2,3,4],[5,6,7,8]])
+# b=np.array([(1,2,3,4),[5,6,7,8]])
+print(b.ndim)
+
+**********************************************
+
+Arithmetic:-
+------------
+a=np.arange(5)
+b=np.arange(5)
+print(a+b)
+print(a-b)
+print(a*b)
+print(a/b)
+print(a%b)
+
+*****************
+
+Size:-
+====
+print("Itemsize",b.itemsize)
+print("Size",b.size)
+print("Total Size",b.nbytes)
+print("Dimension",b.ndim)
+
+*****************
+
+a=np.array([3,4,1,5,7,3,10,2,2,4,5,56,6])
+print(np.sort(a)) # to get sorted order  [ 1  2  2  3  3  4  4  5  5  6  7 10 56] 
+print(np.argsort(a)) # to get index of elemnt present in array  argsort, which is an indirect sort along a specified axis, \ [ 2  7  8  0  5  1  9  3 10 12  4  6 11]
+
+*******************
+"lexsort" which is an indirect stable sort on multiple keys,
+a = [1,5,1,4,3,4,4] # First column
+b = [9,4,0,4,0,2,1] # Second column
+ind = np.lexsort((b,a)) # Sort by a, then by b
+print(ind) # [2 0 4 6 5 3 1] (sorting index of 'a')
+
+'a' data base pani sort panum..sort condition - if same data repeats then it takes higher index 1st then lower one.
+
+l=[(a[i],b[i]) for i in ind]
+print(l)  # [(1, 0), (1, 9), (3, 0), (4, 1), (4, 2), (4, 4), (5, 4)]
+
+first_names = ('Heinrich', 'Galileo', 'Gustav')
+surnames = ('Hertz',    'Galilei', 'Hertz')
+ind = np.lexsort((first_names, surnames))
+print(ind) # [1 2 0]
+
+l=[(first_names[i],surnames[i]) for i in ind]
+print(l) #[('Galileo', 'Galilei'), ('Gustav', 'Hertz'), ('Heinrich', 'Hertz')]
+*********************
+
+searchsorted, which will find elements in a sorted array, and
+partition, which is a partial sort.
+
+print(np.__version__) --> to check version 
+print(pd.__version__)
+
+np.array() :-
+==========
+import numpy as np
+
+l=np.array(43)
+43
+l=np.array([1,2,3,4])
+[1 2 3 4]
+l=np.array(([1,2,3,4,5],[5,4,3,5,2]))
+[[1 2 3 4 5]
+ [5 4 3 5 2]]
+arr = np.array([1, 2, 3, 4], ndmin=5)
+[[[[[1 2 3 4]]]]]
+print('number of dimensions :', arr.ndim) 5 
+
+l=np.array(([1,2,3,4,5],[11,12,13,14,15],[21,22,23,24,25],[31,32,33,34,35]))
+print(l[0:,3]) # all rows and only 3rd column
+print(l[:,2]) # all rows and only 2nd column
+print(l[:,1:3]) # read all rows and get 1st,2nd column
+print(l[1:-1,1:4]) # from 1 to upto last row (Won't take last row) and 1 to 3rd column
+print(l[:,1:3]) # all rows and 1st and 2nd column 
+print(l[2:,3:]) # 2 to all rows and from 3rd to all columns 
+
+*************************************
+np.zeros():-
+===========
+
+import numpy as np
+
+l=np.zeros((2,),dtype=[('x',int),('y',float)])
+print(l)
+l=np.zeros((3,3))
+print(l)
+l=np.zeros((2,2))
+print(l)
+
+[(0, 0.) (0, 0.)]
+
+[[0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]]
+
+[[0. 0.]
+ [0. 0.]]
+
+r=np.ones((4,4))
+z=np.zeros_like(r) -- Take shape of "r" and create same but fill zeros
+print(z)
+
+*************************************  
+np.ones():-
+==========
+
+l=np.ones((2,),dtype=[('x',int),('y',float)])
+print(l)
+l=np.ones((3,3))
+print(l)
+l=np.ones((2,2))
+print(l)
+
+[(1, 1.) (1, 1.)]
+[[1. 1. 1.]
+ [1. 1. 1.]
+ [1. 1. 1.]]
+[[1. 1.]
+ [1. 1.]]
+
+r=np.zeros((4,4))
+z=np.ones_like(r) -- Take shape of "r" and create same but fill ones
+print(z)
+
+l=np.ones((2,),dtype=[('x',int),('y',float)])
+print(l)
+
+******************************************
+
+np.full():-
+=========
+
+print(np.full((4),10))   #[10 10 10 10]
+print(np.full((4,),10))  #[10 10 10 10]
+print(np.full(4,10))     #[10 10 10 10]
+
+print(np.full((4,4),10))
+[[10 10 10 10]
+ [10 10 10 10]
+ [10 10 10 10]
+ [10 10 10 10]]
+
+np.full_like():-
+==============
+
+print(np.full_like(r,10))
+
+[[10. 10. 10. 10.]
+ [10. 10. 10. 10.]
+ [10. 10. 10. 10.]
+ [10. 10. 10. 10.]]
+ 
+print(np.full_like((4,4),10))  [10 10]
+
+z=np.zeros((4,4))
+print(z)
+np.fill_diagonal(z,100)
+print(z)
+
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+[[100.   0.   0.   0.]
+ [  0. 100.   0.   0.]
+ [  0.   0. 100.   0.]
+ [  0.   0.   0. 100.]]
+
+
+****************************************** 
+argmax,argmin,argsort,argpartition
+
+------------------------------------------
+
+import numpy as np
+
+#np.array
+
+a=np.array([1,2,3],dtype='complex')
+print(a) # [1.+0.j 2.+0.j 3.+0.j]
+
+a=np.array([1,2,3],dtype='int32')
+print(a) #[1 2 3]
+
+#np.arange
+
+c=np.arange(1,10,2)
+print(c) # [1 3 5 7 9]
+c=np.arange(1,10,0.5)
+# [1.  1.5 2.  2.5 3.  3.5 4.  4.5 5.  5.5 6.  6.5 7.  7.5 8.  8.5 9.  9.5]
+print(c)
+
+#Basics
+print(a) # [1 2 3]
+print(a.dtype) # int32
+print(a.size) # 3
+print(a.itemsize) #4
+print(a.nbytes) #12
+print(a.shape) # (3,)
+print(a.ndim) # 1
+
+
+#Zeros
+
+print(np.zeros((3,3)))
+print(np.zeros_like(a)) # [0 0 0]
+
+#Ones
+
+print(np.ones((3,3)))
+
+print(np.ones_like((a)))
+
+******************************************************************
+import numpy as np
+
+#String operation
+
+print(np.char.upper("bala")) # BALA
+print(np.char.lower("BALA")) # bala
+print(np.char.title("balaji")) # Balaji
+print(np.char.join(",","balaji")) # b,a,l,a,j,i
+print(np.char.count("balaji","a")) # 2
+print(np.char.center("BALA",20,'-')) # --------BALA--------
+print(np.char.capitalize("BALA")) # Bala
+print(np.char.split("Hi-How-are-you-doing",'-')) # default split by ' ' ['Hi', 'How', 'are', 'you', 'doing']
+print(np.char.swapcase("Hi How are you")) # hI hOW ARE YOU
+
+
+
